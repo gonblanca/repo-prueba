@@ -1,0 +1,43 @@
+---
+title: "prueba"
+author: "Gonzalo Blanca"
+format: 
+  revealjs:
+    embed-resources: true
+editor: visual
+execute: 
+  echo: true
+---
+
+## CARGA DE DATOS
+
+Dato de accidentes de trafico de Madrid del año 2020
+
+```{r}
+#| echo:
+library(tidyverse)
+datos <- read_csv(file = './datats/accidentes.csv')
+datos
+
+```
+
+------------------------------------------------------------------------
+
+**Resumen de los datos**
+
+```{r}
+resumen <- datos |> count(sexo)
+```
+
+------------------------------------------------------------------------
+
+**visualizacion**
+
+```{r}
+#| code-fold: true
+ gg <-ggplot(resumen) + 
+  geom_col(aes(x=sexo, y = n, fill =sexo), alpha = 0.56) +
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+ plotly::ggplotly(gg)
+```
